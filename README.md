@@ -1,3 +1,5 @@
+This is a fork of https://github.com/laracasts/laravel_nova_mastery_2023/tree/main updated to run on laravel 11 and with seeders fixed
+
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
 <p align="center">
