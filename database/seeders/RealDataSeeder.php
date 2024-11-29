@@ -19,8 +19,6 @@ class RealDataSeeder extends Seeder
      */
     public function run(): void
     {
-        File::copyDirectory(database_path('seeders/storage'), public_path('storage'));
-
         $authors = $this->createAuthors();
         [$nineteenEightyFour, $prideAndPrejudice, $theKillers, $theHobbit] = $this->createBooks($authors);
 

@@ -27,8 +27,8 @@ class DatabaseSeeder extends Seeder
         File::ensureDirectoryExists(public_path('storage/covers'));
 
         $user = User::factory()->create([
-            'name' => 'Luke Downing',
-            'email' => $this->command->ask("What email address would you like to use?", "luke@laracasts.com"),
+            'name' => 'Test User',
+            'email' => "admin@admin.com",
         ]);
 
         Publisher::factory(10)->create();

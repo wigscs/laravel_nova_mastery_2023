@@ -19,7 +19,7 @@ class AuthorFactory extends Factory
         return [
             'name' => fake()->name,
             'biography' => fake()->paragraph,
-            'avatar' => '/authors/' . fake()->image('public/storage/authors', 60, 80, 'people', false),
+            'avatar' => '/authors/' . fake()->image('public/storage/authors', 60, 80, false),
         ];
     }
 }

@@ -159,6 +159,7 @@ return [
         /*
          * Package Service Providers...
          */
+        App\Providers\FakerServiceProvider::class,
 
         /*
          * Application Service Providers...
