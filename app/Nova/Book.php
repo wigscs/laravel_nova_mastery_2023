@@ -2,10 +2,23 @@
 
 namespace App\Nova;
 
+use App\Nova\Relationships\LoanFields;
+use Illuminate\Contracts\Database\Eloquent\Builder;
+use Illuminate\Validation\Rule;
 use Illuminate\Http\Request;
+use Laravel\Nova\Fields\BelongsTo;
+use Laravel\Nova\Fields\BelongsToMany;
+use Laravel\Nova\Fields\Boolean;
+use Laravel\Nova\Fields\DateTime;
+use Laravel\Nova\Fields\File;
+use Laravel\Nova\Fields\FormData;
+use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\Text;
+use Laravel\Nova\Fields\Image;
+use Laravel\Nova\Fields\Trix;
+use Laravel\Nova\Fields\URL;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
 class Book extends Resource
@@ -33,7 +46,10 @@ class Book extends Resource
         'id',
         'title',
         'blurb',
+        'author.name',
     ];
+
+    public static $with = ['author'];
 
     /**
      * Get the fields displayed by the resource.
@@ -47,19 +63,75 @@ class Book extends Resource
             ID::make()
                 ->sortable(),
 
+            Image::make('Cover')
+                ->path('covers'),
+
             Text::make('Title')
                 ->sortable()
-                ->required(),
+                ->rules('required', 'string', 'min:1', 'max:255')
+                ->creationRules('unique:books,title')
+                ->updateRules('unique:books,title,{{resourceId}}'),
+
+            BelongsTo::make('Author')
+                ->showCreateRelationButton()
+                ->modalSize('3xl')
+                ->searchable()
+                ->withSubtitles()
+                ->sortable(),
+
+            BelongsTo::make('Publisher')
+                ->showCreateRelationButton()
+                ->modalSize('3xl')
+                ->searchable()
+                ->filterable()
+                ->hideFromIndex(),
+
+            Trix::make('Blurb')
+                ->alwaysShow()
+                ->fullWidth(),
 
             Number::make('Pages', 'number_of_pages')
                 ->filterable()
                 ->hideFromIndex()
-                ->required(),
+                ->rules('required', 'integer', 'min:1', 'max:10000'),
 
             Number::make('Copies', 'number_of_copies')
                 ->sortable()
                 ->required()
                 ->help('The total number of copies of this book that the library owns.'),
+
+            Boolean::make('Featured', 'is_featured')
+                ->help('Whether this book is featured on the homepage.')
+                ->filterable(),
+
+            File::make('PDF')
+                ->path('pdfs'),
+
+            URL::make('Purchase URL')
+                ->displayUsing(fn ($value) => $value ? parse_url($value, PHP_URL_HOST) : null),
+
+            BelongsTo::make('Genre')
+                ->relatableQueryUsing(function (NovaRequest $request, Builder $query) {
+                    $query->whereNull('parent_id');
+                })
+                ->rules('required', Rule::exists('genres', 'id')->whereNull('parent_id')),
+
+            BelongsTo::make('Subgenre', resource: Genre::class)
+                ->dependsOn(['genre'], function (BelongsTo $field, NovaRequest $request, FormData $data) {
+                    if ($data->genre === null) {
+                        $field->hide();
+                    }
+                    $field
+                        ->relatableQueryUsing(function (NovaRequest $request, Builder $query) use ($data) {
+                            $query->where('parent_id', $data->genre);
+                        })
+                        ->rules('required', Rule::exists('genres', 'id')->where('parent_id', $data->genre));
+                }),
+
+            HasMany::make('Audio Recordings', attribute: 'recordings', resource: Recording::class),
+
+            BelongsToMany::make('Current Loans', resource: Customer::class)
+                ->fields(new LoanFields()),
         ];
     }
 

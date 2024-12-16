@@ -18,7 +18,7 @@ class PublisherFactory extends Factory
     {
         return [
             'name' => fake()->company,
-            'logo' => fake()->imageUrl(300, 300),
+            'logo' => '/publishers/' . fake()->image('public/storage/publishers', 300, 300, false),
         ];
     }
 }

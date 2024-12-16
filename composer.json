@@ -12,7 +12,8 @@
         "laravel/framework": "^11.31",
         "laravel/nova": "4.34.3",
         "laravel/tinker": "^2.9",
-        "laravel/sanctum": "^4.0"
+        "laravel/sanctum": "^4.0",
+        "Relationship/LoanFields": "@dev"
     },
     "require-dev": {
         "fakerphp/faker": "^1.23",
@@ -79,6 +80,10 @@
         {
             "type": "composer",
             "url": "https://nova.laravel.com"
+        },
+        {
+            "type": "path",
+            "url": "./nova-components/LoanFields"
         }
     ]
 }
