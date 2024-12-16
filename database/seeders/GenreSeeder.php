@@ -22,7 +22,7 @@ class GenreSeeder extends Seeder
             ['name' => 'Thriller and Suspense'],
             ['name' => 'Western'],
             ['name' => 'Biography'],
-        )->create();
+        )->create()->unique();
 
         Genre::factory()->for($fantasy, 'parent')->forEachSequence(
             ['name' => 'Alternate History'],

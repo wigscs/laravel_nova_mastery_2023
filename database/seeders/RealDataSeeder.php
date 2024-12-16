@@ -66,21 +66,21 @@ class RealDataSeeder extends Seeder
         [$george, $jane, $ernest, $jrr] = $authors;
 
         return Book::factory()->forEachSequence(
-            ['title' => '1984', 'author_id' => $george, 'cover' => '/covers/1984.jpeg'],
-            ['title' => 'Pride & Prejudice', 'author_id' => $jane, 'cover' => '/covers/pride-and-prejudice.jpeg'],
-            ['title' => 'The Killers', 'author_id' => $ernest, 'cover' => '/covers/the-killers.jpeg'],
-            ['title' => 'The Hobbit', 'author_id' => $jrr, 'cover' => '/covers/the-hobbit.png'],
-            ['title' => 'Animal Farm', 'author_id' => $george, 'cover' => '/covers/animal-farm.jpeg'],
-            ['title' => 'Politics and the English Language', 'author_id' => $george, 'cover' => '/covers/politics-and-the-english-language.jpeg'],
-            ['title' => 'Emma', 'author_id' => $jane, 'cover' => '/covers/emma.jpeg'],
-            ['title' => 'Persuasion', 'author_id' => $jane, 'cover' => '/covers/persuasion.jpeg'],
-            ['title' => 'Sense & Sensibility', 'author_id' => $jane, 'cover' => '/covers/sense-and-sensibility.jpeg'],
-            ['title' => 'The Old Man and the Sea', 'author_id' => $ernest, 'cover' => '/covers/the-old-man-and-the-sea.jpeg'],
-            ['title' => 'For Whom the Bell Tolls', 'author_id' => $ernest, 'cover' => '/covers/for-whom-the-bell-tolls.jpeg'],
-            ['title' => 'A Farewell to Arms', 'author_id' => $ernest, 'cover' => '/covers/a-farewell-to-arms.jpeg'],
-            ['title' => 'The Lord of the Rings', 'author_id' => $jrr, 'cover' => '/covers/the-lord-of-the-rings.jpeg'],
-            ['title' => 'The Fellowship of the Ring', 'author_id' => $jrr, 'cover' => '/covers/the-fellowship-of-the-ring.jpeg'],
-            ['title' => 'The Two Towers', 'author_id' => $jrr, 'cover' => '/covers/the-two-towers.jpeg'],
+            ['title' => '1984', 'author_id' => $george, 'cover' => '/covers/1984.jpeg', 'genre_id' => 1],
+            ['title' => 'Pride & Prejudice', 'author_id' => $jane, 'cover' => '/covers/pride-and-prejudice.jpeg', 'genre_id' => 2],
+            ['title' => 'The Killers', 'author_id' => $ernest, 'cover' => '/covers/the-killers.jpeg', 'genre_id' => 3],
+            ['title' => 'The Hobbit', 'author_id' => $jrr, 'cover' => '/covers/the-hobbit.png', 'genre_id' => 4],
+            ['title' => 'Animal Farm', 'author_id' => $george, 'cover' => '/covers/animal-farm.jpeg', 'genre_id' => 5],
+            ['title' => 'Politics and the English Language', 'author_id' => $george, 'cover' => '/covers/politics-and-the-english-language.jpeg', 'genre_id' => 6],
+            ['title' => 'Emma', 'author_id' => $jane, 'cover' => '/covers/emma.jpeg', 'genre_id' => 7],
+            ['title' => 'Persuasion', 'author_id' => $jane, 'cover' => '/covers/persuasion.jpeg', 'genre_id' => 6],
+            ['title' => 'Sense & Sensibility', 'author_id' => $jane, 'cover' => '/covers/sense-and-sensibility.jpeg', 'genre_id' => 5],
+            ['title' => 'The Old Man and the Sea', 'author_id' => $ernest, 'cover' => '/covers/the-old-man-and-the-sea.jpeg', 'genre_id' => 4],
+            ['title' => 'For Whom the Bell Tolls', 'author_id' => $ernest, 'cover' => '/covers/for-whom-the-bell-tolls.jpeg', 'genre_id' => 3],
+            ['title' => 'A Farewell to Arms', 'author_id' => $ernest, 'cover' => '/covers/a-farewell-to-arms.jpeg', 'genre_id' => 2],
+            ['title' => 'The Lord of the Rings', 'author_id' => $jrr, 'cover' => '/covers/the-lord-of-the-rings.jpeg', 'genre_id' => 1],
+            ['title' => 'The Fellowship of the Ring', 'author_id' => $jrr, 'cover' => '/covers/the-fellowship-of-the-ring.jpeg', 'genre_id' => 2],
+            ['title' => 'The Two Towers', 'author_id' => $jrr, 'cover' => '/covers/the-two-towers.jpeg', 'genre_id' => 3],
         )->recycle(Publisher::all())->create();
     }
 }
