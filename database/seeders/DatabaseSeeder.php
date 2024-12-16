@@ -22,9 +22,11 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        File::deleteDirectory(public_path('storage'));
-        File::ensureDirectoryExists(public_path('storage/authors'));
-        File::ensureDirectoryExists(public_path('storage/covers'));
+        //File::deleteDirectory(public_path('storage'));
+        //File::ensureDirectoryExists(public_path('storage/authors'));
+        //File::ensureDirectoryExists(public_path('storage/covers'));
+        File::copyDirectory(database_path('seeders/storage/authors'), storage_path('app/public/authors'));
+        File::copyDirectory(database_path('seeders/storage/covers'), storage_path('app/public/covers'));
 
         $user = User::factory()->create([
             'name' => 'Test User',
